@@ -66,9 +66,9 @@ public class UserAsyncTask extends AsyncTask<String,Void,UserDetails> {
 
     @Override
     protected void onPostExecute(UserDetails userDetails) {
-        Log.i("CheckIn","Name " + userDetails.getName());
-        Log.i("CheckIn","UserName " + userDetails.getUsername());
-        Log.i("CheckIn","Email " + userDetails.getEmail());
+//        Log.i("CheckIn","Name " + userDetails.getName());
+//        Log.i("CheckIn","UserName " + userDetails.getUsername());
+//        Log.i("CheckIn","Email " + userDetails.getEmail());
         listener.onDownload(userDetails);
     }
 }

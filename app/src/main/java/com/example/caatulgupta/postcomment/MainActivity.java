@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     ProgressBar progressBar;
     PostCommentAdapter adapter;
+    FloatingActionButton fab;
     ArrayList<PostComment> postComments = new ArrayList<>();
 
     @Override
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.listView);
         progressBar = findViewById(R.id.progressBar);
+
+        fab = findViewById(R.id.fab);
 
         adapter = new PostCommentAdapter(this,postComments);
         listView.setAdapter(adapter);
@@ -38,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 PostComment postComment = postComments.get(i);
                 bundle.putString("title",postComment.getTitle());
-                Log.i("TITLE",postComment.getTitle());
+                Log.i("TITLE",postComment.getId()+"");
                 bundle.putString("body",postComment.getBody());
                 bundle.putInt("userId",postComment.getUser_id());
                 bundle.putInt("id",postComment.getId());
@@ -70,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void fetchData(View view) {
+//        fab.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.VISIBLE);
         listView.setVisibility(View.GONE);
 
