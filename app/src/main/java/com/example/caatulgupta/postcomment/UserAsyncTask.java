@@ -31,6 +31,8 @@ public class UserAsyncTask extends AsyncTask<String,Void,UserDetails> {
 
         String urlString = strings[0];
 
+        Log.i("URL",urlString);
+
         try {
             URL url = new URL(urlString);
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
@@ -46,7 +48,7 @@ public class UserAsyncTask extends AsyncTask<String,Void,UserDetails> {
             JSONObject root =new JSONObject(result);
 
 
-//            Log.i("Name",root.getString("email"));
+            Log.i("Name",root.getString("email"));
 
                 userDetails = new UserDetails(root.getString("name"),root.getString("username"),root.getString("email"));
 //                userDetails.add(userDetail);

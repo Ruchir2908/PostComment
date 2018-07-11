@@ -1,7 +1,10 @@
 package com.example.caatulgupta.postcomment;
 
+import com.google.gson.annotations.SerializedName;
+
 public class PostComment {
     private int id;
+
     private int user_id;
     private String title;
     private String body;

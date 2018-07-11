@@ -42,6 +42,9 @@ public class PostCommentAsyncTask extends AsyncTask<String,Void,ArrayList<PostCo
             while (scanner.hasNext()){
                 result = result + scanner.next();
             }
+
+
+
 //            JSONArray rootArray = new JSONArray(result);
 //            for(int i=0;i<rootArray.length();i++){
 //                JSONObject details = rootArray.getJSONObject(i);
@@ -60,7 +63,7 @@ public class PostCommentAsyncTask extends AsyncTask<String,Void,ArrayList<PostCo
 //            }
 
             postComments.addAll(postCommentArrayList);
-            Log.i("PCAT","ID: "+postComments.get(0).getId());
+            Log.i("PCAT","ID: "+postComments.get(0).getTitle());
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

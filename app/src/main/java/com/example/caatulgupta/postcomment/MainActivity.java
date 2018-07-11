@@ -13,6 +13,12 @@ import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class MainActivity extends AppCompatActivity {
 
     ListView listView;
@@ -41,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 PostComment postComment = postComments.get(i);
                 bundle.putString("title",postComment.getTitle());
-                Log.i("TITLE",postComment.getId()+"");
+                Log.i("TITLE",postComment.getUser_id()+"");
                 bundle.putString("body",postComment.getBody());
                 bundle.putInt("userId",postComment.getUser_id());
                 bundle.putInt("id",postComment.getId());
@@ -77,17 +83,40 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         listView.setVisibility(View.GONE);
 
-        PostCommentAsyncTask task = new PostCommentAsyncTask(new PostCommentDownloadListener() {
+//        PostCommentAsyncTask task = new PostCommentAsyncTask(new PostCommentDownloadListener() {
+//            @Override
+//            public void onDownload(ArrayList<PostComment> postComment) {
+//                postComments.clear();
+//                postComments.addAll(postComment);
+//                adapter.notifyDataSetChanged();
+//                progressBar.setVisibility(View.GONE);
+//                listView.setVisibility(View.VISIBLE);
+//            }
+//        });
+//        task.execute("https://jsonplaceholder.typicode.com/posts");
+
+
+
+
+
+
+        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("https://jsonplaceholder.typicode.com/").addConverterFactory(GsonConverterFactory.create());
+        Retrofit retrofit = builder.build();
+        PostCommentService service = retrofit.create(PostCommentService.class);
+        Call<ArrayList<PostComment>> call = service.getPost();
+        call.enqueue(new Callback<ArrayList<PostComment>>() {
             @Override
-            public void onDownload(ArrayList<PostComment> postComment) {
-                postComments.clear();
-                postComments.addAll(postComment);
-                adapter.notifyDataSetChanged();
+            public void onResponse(Call<ArrayList<PostComment>> call, Response<ArrayList<PostComment>> response) {
+                postComments.addAll(response.body());
                 progressBar.setVisibility(View.GONE);
                 listView.setVisibility(View.VISIBLE);
             }
+
+            @Override
+            public void onFailure(Call<ArrayList<PostComment>> call, Throwable t) {
+
+            }
         });
-        task.execute("https://jsonplaceholder.typicode.com/posts");
 
     }
 
